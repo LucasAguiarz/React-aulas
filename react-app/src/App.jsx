@@ -1,12 +1,15 @@
 import React from 'react'
 import {v4 as uuid4} from 'uuid';
 import { useState } from 'react'
+import {BrowserRouter, BrowserRouter as Routes, Route} from 'react-router-dom'
+
 
 import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
 import Header from './components/Header';
 
 import './App.css'
+import TaskDetails from './components/TaskDetails';
 
 const App = () => {
   const [tasks,setTasks] = useState([
@@ -50,13 +53,27 @@ const handleTaskAddition = (taskTitle) =>{
     setTasks(newTask)
   }
   return (
-    <>
-    <div className="container">
-      <Header/>
-      <AddTask handleTaskAddition={handleTaskAddition}/>
-      <Tasks tasks={tasks} handleTaskClick={handleTaskClick} handleTaskDeletion={handleTaskDeletion}/>
-    </div>
-    </>
+    <BrowserRouter>
+      <Routes>
+      <Route path='/' exact render={
+        <div className="container">
+        <Header/>
+        
+        <>
+        
+          <AddTask handleTaskAddition={handleTaskAddition}/>
+          <Tasks tasks={tasks} 
+            handleTaskClick={handleTaskClick} 
+            handleTaskDeletion={handleTaskDeletion}
+        
+            />
+        </>
+        
+       
+        </div>
+      }/>
+      </Routes>
+    </BrowserRouter>
   )
 }
 export default App
